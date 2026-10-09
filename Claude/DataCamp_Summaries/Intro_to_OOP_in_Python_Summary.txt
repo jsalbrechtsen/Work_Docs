@@ -1,0 +1,86 @@
+INTRO TO OOP IN PYTHON DATACAMP COURSE SUMMARY
+
+Procedural vs. OOP & Core Principles
+- Procedural = sequence of steps (good for analysis); OOP = objects & interactions (software)
+- OOP is flexible & involves creating tools for other users by organizing code non-sequentially
+- Core principles of OOP: 1) Encapsulation (data & methods), 2) Inheritance, 3) Polymorphism
+
+Objects & Classes
+- Objects = state & behavior; state = data = attributes & behavior = functionality = methods
+- Everything in Python is an object (e.g., ints, strs, DataFrames, funcs) & each has a class
+- Classes are blueprints describing possible states & behaviors; object = instance of class
+- Define class w/ “class Customer:” & create object w/ “cust = Customer()”; pass = empty class
+
+Attributes, Methods, & the Self Keyword
+- Methods are funcs defined in class w/ special 1st arg self; self = stand-in for the future object
+- “cust.identify('Laura')” is same as “Customer.identify(cust, 'Laura')”; self NOT needed in call
+- Attributes are created by assignment to self within methods (e.g., “self.name = new_name”)
+- Access attributes w/o parentheses (“cust.name”) & methods w/ them (“cust.identify()”)
+- The name “self” is just convention (any word works), but ALWAYS use self for consistency
+
+The dir() & help() Functions
+- Use “type(obj)” to get class, “dir(obj)” to list all attributes/methods & “help()” for more info
+
+The __init__() Constructor & Best Practices
+- The __init__() constructor method is automatically called every time an object is created
+- “def __init__(self, name, balance=0):” adds data at creation & sets attribute defaults
+- Define ALL attributes in constructor (NOT other methods) so all exist & are easy to find
+- Name classes w/ CamelCase & methods/attributes lowercase w/ underscores between words
+- Class docstrings go immediately after the “class Name:” line just like w/ functions
+
+Instance vs. Class Level Attributes
+- Instance attributes (e.g., self.name) are set in constructor w/ self & differ between objects
+- Class attributes defined in class body w/o self & shared by ALL instances (e.g., MIN_SALARY)
+- Capitalize class attributes & refer to them w/ “ClassName.ATTR” NOT self in methods
+- Assigning via instance (“emp1.MIN_SALARY = 50000”) changes that object only, NOT the class
+- “Employee.MIN_SALARY = 35000” changes class attribute at runtime for ALL instances
+- Use class attributes for global constants (e.g., min/max bounds) & common config values
+
+Class Methods & Alternative Constructors
+- Class methods are bound to class NOT instance & can NOT use instance-level attributes
+- Define w/ “@classmethod” prior to def & cls (NOT self) as 1st arg; call w/ “Class.method()”
+- Main use case = alternative constructors; “return cls(args)” calls __init__ & returns object
+- Examples: Employee.from_file(), Person.from_birth_year() & BetterDate.from_str()
+- Also used for Singleton design pattern restricting class to 1 object (e.g., database connection)
+
+Class Inheritance
+- Inheritance = new class gets ALL functionality of another class w/o re-implementing the code
+- “class SavingsAccount(BankAccount):” + pass = child/subclass inherits all of parent class
+- Child objects can use parent attributes & methods even though NOT defined in the child class
+- Inheritance = “is-a”; isinstance(child_obj, Parent) = True but parent obj NOT instance of child
+
+Customizing Child Classes
+- Customize child constructor by calling “Parent.__init__(self, args)” then add new attributes
+- If child has own __init__ that does NOT call parent’s, parent attributes are NEVER created
+- Add methods to child like any class; methods can use data from BOTH child & parent classes
+- Override parent method by re-defining in child (e.g., withdraw() w/ fee arg calls parent’s)
+- Same call runs the instance class’s version = polymorphism; new args in child violate it
+- Class attributes are inherited & their values CAN be overwritten in the child class body
+
+Object Equality & Comparison Operators
+- By default “obj1 == obj2” compares references to memory NOT data, so equal data = False
+- Built-in types compare by data NOT reference, so identical lists/sets ARE seen as equal
+- Define “__eq__(self, other)” method returning Boolean so == compares attribute data instead
+- Add “type(self) == type(other)” check so different classes w/ same attributes aren’t equal
+- Other operator methods: != is __ne__, < is __lt__, > is __gt__, <= is __le__, >= is __ge__
+- “x == y” calls left operand’s __eq__ first & falls back to right’s if NotImplemented returned
+- When comparing parent & child objects, Python ALWAYS calls the child’s __eq__ method
+
+Printing Objects: __str__() vs __repr__()
+- Default print of custom object shows class & memory address NOT the object’s actual data
+- __str__ runs on “print(obj)” or “str(obj)” = informal, user-friendly description of object
+- __repr__ runs on “repr(obj)” or console display = string of code that can reproduce the object
+- Both methods are defined within the class, must return a string & typically use f-strings
+- Best practice: __repr__ returns reproducing code (e.g., f"Customer('{self.name}', ...)")
+- If only defining one, choose __repr__ since it's the fall-back for print when no __str__ exists
+
+Exceptions & Custom Exceptions
+- Errors = exceptions (e.g., ZeroDivisionError; see .ipynb for more); unhandled = code stops
+- Catch w/ try (risky code), except ExceptionName (can use multiple) & finally (always runs)
+- Raise your own w/ “raise ValueError('msg')”; only excepted types caught, others terminate
+- Exceptions are classes inherited from built-in Exception (or BaseException) class hierarchy
+- Create custom exception w/ “class BalanceError(Exception): pass”; inheriting is all you need
+- Raising in constructor = invalid object NOT created; code’s user decides whether to try-except
+- Can build exception hierarchies (e.g., BonusError inherits SalaryError inherits ValueError)
+- Code after raise only runs if no exception occurs, so no else branch needed after raise in if
+- Exceptions terminate the script, so it’s better to anticipate & handle them in your classes

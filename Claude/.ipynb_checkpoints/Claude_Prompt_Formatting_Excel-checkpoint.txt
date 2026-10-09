@@ -1,0 +1,7 @@
+Please format all spreadsheets in all .xlsx files in the following manner...
+- Calibri 12 point black font with a "no fill" background in all cells   
+- All cells should be centered
+- Column names should be all caps and Bolded
+- Freeze column names for scrolling purposes
+- Column width is too wide.  Columns should only be wide enough to include text contained in the column
+- Do not add AutoFilter (the drop-down arrows on the column headers) to any table

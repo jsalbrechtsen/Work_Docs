@@ -1,0 +1,107 @@
+PROMPT 1 — Salt my rough draft
+
+I'm writing a multilingual personal narrative (a Word document of my life story, one passage per year) to learn the 1,000 most common Italian words. Below is my rough draft (~250 words) about the next year of my life (the draft states the year).
+
+Revise ("salt") the draft so that, when it is later translated into Italian, the translation will use words from the attached 1,000-word Italian frequency list (italian_1000_words.xlsx) that I have NOT yet used. IMPORTANT: the revised draft must remain 100% English. Never insert Italian words into the text — salting means adding or adjusting ENGLISH words and phrases whose future Italian translations will hit unused list words. (Example: if "notte" is unused, salt by writing "I worked nights," not by writing "I worked notti.") The Italian translation happens in a later prompt. The spreadsheet's "Used" and "First Used In" columns are the authoritative record of which words are already used — read them; do not recompute usage from any other source, and never target a word whose "Used" cell says Yes. Rules:
+- Aim for a modest number of new list words: slightly above my needed pace, which you should calculate yourself as (count of list words with a blank "Used" cell) divided by (passages remaining = current calendar year minus the most recent year appearing in the "First Used In" column). Treat this as a soft target, not a hard cap; if my draft naturally overshoots, don't trim. Do not maximize; light salting only.
+- Strict draft boundary: every insertion must attach to something explicitly in my draft. Do not add settings, scenery, activities, or details I did not mention. Salt only after reading my draft; never based on what you imagine the year contained.
+- Do not invent facts or events. Insertions must be texture on things I actually wrote.
+- Keep my voice. Natural-sounding first, coverage second.
+- Bold every word or phrase you insert or change so I can review them.
+- Counting conventions: a list word counts in any conjugated/inflected form; duplicate list entries (ho/avere, sono/è/essere, anni/anno) collapse to one word; proper nouns don't count.
+- About me: male, informal register (tu).
+
+Return the revised English draft as a prose paragraph (do not number it, break it into a sentence list, or apply any length formatting — a later prompt handles that). Then list the unused Italian list words you targeted, each with its English meaning, so I can verify none are already marked Used.
+
+Are you ready for me to paste my draft and attach the "Italian_1000_words.xlsx" file?
+
+[PASTE ROUGH DRAFT AND ATTACH "ITALIAN_1000_WORDS.XLSX" FILE INTO CLAUDE CHAT]
+
+
+
+
+
+PROMPT 2 — Format to 25 × 250
+
+I am going to provide you with my edited version of the salted passage. Restructure it to exactly:
+- 25 sentences
+- 250 total words
+- every sentence between 9 and 11 words
+
+Rules:
+- Preserve my content and voice: do not add, remove, or change facts. Reword only as much as needed to hit the counts.
+- Preserve as many of the salted list-words as possible (the words targeted in the salting step), and tell me if any get squeezed out by the format.
+- Count words as whitespace-separated tokens: hyphenated words and contractions count as one word. Do not join words with unspaced dashes or slashes, since that would merge them into one token.
+- Output the sentences one per line, in plain prose (no numbering, no bullets, no bold).
+- Verify the counts with code and show me the per-sentence word counts.
+
+Are you ready for me to paste the revised draft (which may or may NOT be different from what you created)?
+
+[PASTE EDITED PASSAGE INTO CLAUDE CHAT]
+
+
+
+
+
+PROMPT 3 — Review my edits (informational)
+
+I am going to provide you with my edited 25 sentences. My rough targets are about 25 sentences, about 250 total words, and sentences roughly 9–11 words — but these are guidelines, not rules. My edits are final; I'm using my own judgment. Just give me the information so I can decide:
+1. Sentence count and total word count.
+2. The longest and shortest sentences, with their word counts.
+3. Any sentences outside the 9–11 range — listed for my awareness only, no fix needed unless I ask.
+4. Any genuine grammar errors (broken constructions, typos) — not style preferences; this is my personal voice.
+
+Counting method: words are whitespace-separated tokens; hyphenated words and contractions count as one word. Verify all counts with code, not by eye. Do not rewrite or "fix" my sentences unless I explicitly ask.
+
+Are you ready for me to paste the revised 25 sentences?
+
+[PASTE EDITED SENTENCES INTO CLAUDE CHAT]
+
+
+
+
+
+PROMPT 4 — Translate and format
+
+I am going to provide you with my final 25 sentences. Translate each one into Spanish and Italian. Translate exactly the sentences I give — do not merge, split, add, or drop any, so the output has one triplet per sentence I sent.
+- Spanish: Latin American.
+- Italian: informal register (tu). Use masculine agreement for me (the narrator, Justin); use feminine agreement for my wife Llubia when she is the subject. Match the past-tense style of my narrative (passato remoto / imperfetto).
+- Preserve unused Italian frequency-list words wherever a natural translation allows (these are the words targeted during salting). If you do not have that context in this chat, attach/refer to italian_1000_words.xlsx and aim for words whose "Used" cell is blank.
+
+Output format — no numbers, no table:
+- English sentence fully in bold (the entire line bold, no partial formatting).
+- Spanish sentence fully in italics (the entire line italic).
+- Italian sentence in plain text.
+- Three lines per sentence in that order (English, Spanish, Italian), with a blank line after every single line.
+
+Are you ready for my final 25 sentences?
+
+[PASTE FINAL SENTENCES INTO CLAUDE CHAT]
+
+
+
+
+
+PROMPT 5 — Update the tracking spreadsheet
+
+Now update my word-list tracking spreadsheet (italian_1000_words.xlsx, already attached earlier in this chat) to account for the new passage you just translated. Work incrementally — trust the spreadsheet's existing record for everything already covered; only analyze the new passage's Italian sentences.
+
+Method:
+
+1) The authoritative record of what is already used is the spreadsheet's "Used" column (Yes = already used) and "First Used In" column (the passage where it first appeared). Trust these; do NOT recompute or change the status of words already marked Used.
+
+2) Take the Italian sentences of the new passage (the ones you just produced in the translation step). For each word, reduce it to its dictionary form: use a lemmatizer, and handle Italian irregulars a lemmatizer often misses — irregular participles (nato→nascere, rotto→rompere, vissuto→vivere), passato remoto forms (fece→fare, disse→dire), and article/preposition contractions (negli→in+gli, della→di+la). Ignore proper nouns entirely — treat every capitalized name or place (people, cities, countries, institutions) as excluded, and when unsure whether a capitalized word is a name, exclude it.
+
+3) Duplicate-family entries in the list collapse to one real word and are marked together: ho/ha/avere, sono/è/essere/stato/c'è, anni/anno. If any member of a family becomes used, mark all its rows Used with the same passage.
+
+4) For each new-passage word whose "Used" cell is currently blank, set "Used" = Yes and "First Used In" = this passage's header (YYYY (AGE N)). Leave all already-used rows untouched.
+
+Then:
+
+1) Tell me how many NEW words this passage added, and list them with English meanings.
+
+2) Show the passage-by-passage progress table in chat (derive it by grouping the "First Used In" column: passage, new words, cumulative). Do not create a separate coverage file.
+
+3) Give me the updated italian_1000_words.xlsx to save as next week's input. CRITICAL: edit ONLY the "Used" and "First Used In" columns. Do not touch, rewrite, reorder, or reformat any other cell. The two example-sentence columns contain rich-text formatting (one word in each is bold + italic) that MUST survive unchanged. Do this by loading the existing file and writing only those two columns' cells, then saving — do NOT rebuild the sheet from scratch. After saving, verify the bold+italic example-sentence formatting is still present and report the count; if it was lost, redo it preserving the rich text.
+
+4) End with a save line: total words covered, total remaining, and the new-words-per-passage pace needed to finish (passages remaining = current calendar year minus the newest year now in the "First Used In" column).

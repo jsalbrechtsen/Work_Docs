@@ -1,0 +1,177 @@
+================================================================================
+PROMPT: CREATE A TWO-PAGE COURSE CHEAT SHEET (.docx + .txt) FROM A .ipynb FILE
+================================================================================
+
+You are creating a one-page-front-and-back cheat sheet from a Jupyter notebook
+that walks through a coding course. You will produce TWO files: a styled .docx
+and a plain-text .txt mirror of it. Follow every instruction in this prompt
+exactly. The rules below were calibrated through detailed iteration with me and
+are not suggestions.
+
+--------------------------------------------------------------------------------
+1. FILES ATTACHED TO THIS CHAT
+--------------------------------------------------------------------------------
+Three of the attached files are REFERENCE EXAMPLES showing a finished
+input-to-output transformation. Study them; do not summarize them:
+
+  - Intro_to_OOP_in_Python.ipynb ............................ example INPUT
+  - INTRO_TO_OOP_IN_PYTHON_DATACAMP_COURSE_SUMMARY.docx ..... example OUTPUT (.docx)
+  - Intro_to_OOP_in_Python_Summary.txt ...................... example OUTPUT (.txt)
+
+Any OTHER .ipynb file attached is the TARGET NOTEBOOK you must summarize. If no
+target notebook is attached, say so in one sentence and stop; otherwise proceed
+start to finish.
+
+DO NOT ASK ME ANY FOLLOW-UP QUESTIONS. Make reasonable judgment calls wherever
+needed and disclose every judgment call, merge, or cut in your final message.
+
+--------------------------------------------------------------------------------
+2. DELIVERABLES AND FILENAMES
+--------------------------------------------------------------------------------
+Derive both filenames from the target notebook's filename (shown here for a
+hypothetical Some_New_Course.ipynb):
+
+  - .docx: SOME_NEW_COURSE_DATACAMP_COURSE_SUMMARY.docx
+           (notebook filename in ALL CAPS + "_DATACAMP_COURSE_SUMMARY.docx";
+            if the notebook is clearly NOT a DataCamp course, use
+            "_COURSE_SUMMARY.docx" instead)
+  - .txt:  Some_New_Course_Summary.txt
+           (notebook filename with its original capitalization + "_Summary.txt")
+
+The TITLE inside both files is the .docx filename's words without the
+extension, e.g. "SOME NEW COURSE DATACAMP COURSE SUMMARY".
+
+--------------------------------------------------------------------------------
+3. PURPOSE AND VOICE
+--------------------------------------------------------------------------------
+The cheat sheet is a plain-English summary of the course content for MY OWN
+reference, written so each line triggers recall of what I learned. Summarize
+only what the notebook actually teaches; never invent content. Check your
+bullets for typos and for factual accuracy against the notebook.
+
+--------------------------------------------------------------------------------
+4. CONTENT RULES (calibrated decisions - follow all of them)
+--------------------------------------------------------------------------------
+SECTIONING: Use many small, concept-named sections - one section per distinct
+idea, even if a section has only one or two bullets. Section headers name the
+CONCEPT (e.g., "Object Equality", "The dir() & help() Functions"), not the
+course's chapter titles. The notebook's chapter structure is raw material, not
+a template.
+
+DENSITY: Within sections, be granular and detailed. Capture mechanics, syntax
+patterns, conventions, and edge-case rules - not just high-level summaries.
+Fill the two pages: two pages is BOTH a soft target (get close to full) AND an
+absolute ceiling (never exceed).
+
+WHY-IT-MATTERS BULLETS: Alongside the "how", include conceptual-glue bullets:
+the purpose of a technique, why a behavior exists, contrasts that frame a rule
+(e.g., "built-in types compare by data, so custom objects are the exception"),
+and closing practical advice for a topic.
+
+ONE THOUGHT PER LINE: Every bullet is ONE complete thought that fits on EXACTLY
+ONE rendered line in the .docx. This is the core design principle - a new line
+starting with a dash means a new thought. No bullet may ever wrap to a second
+line. Section 6 tells you how to verify this programmatically; do not eyeball
+it or count characters.
+
+COMPRESSION STYLE: To keep each thought on one line, use my shorthand
+conventions throughout (study the example .docx): "w/" for with, "w/o" for
+without, "&" for and, "e.g.,", "i.e.,", abbreviations like func/var/args/def,
+and CAPS for emphasis words (NOT, ALL, ALWAYS, NEVER, BOTH). Inline syntax goes
+in curly double quotes ("class Customer:"), never in code blocks.
+
+EXAMPLES (hybrid rule): Use the notebook's exact class/function/variable names
+in examples by default; abbreviate names (e.g., SavingsAccount -> SaveAcct)
+ONLY when a line cannot otherwise fit.
+
+LONG LISTS: When an enumeration genuinely cannot fit, you may compress it and
+point back to the source with "(see .ipynb for more)".
+
+OVERFLOW PROTOCOL: If the content exceeds the two-page capacity, FIRST merge
+pairs of closely-related bullets into single lines (verifying width), and only
+cut content outright as a last resort. Disclose every merge and cut in your
+final message. If content runs short, add more detail per topic to approach
+two full pages.
+
+--------------------------------------------------------------------------------
+5. FORMATTING RULES (the example .docx is the authority)
+--------------------------------------------------------------------------------
+  - US Letter (12240 x 15840 DXA), 1-inch margins, Calibri 12 pt
+  - Single line spacing (w:spacing w:line="240" w:lineRule="auto") with
+    w:contextualSpacing on every paragraph
+  - Title: ALL CAPS, bold, CENTERED; one empty paragraph after it
+  - Section headers: bold + italic + underlined, left-aligned
+  - Bullets: plain paragraphs whose text starts with "- " (a literal hyphen and
+    space typed as text - NOT Word's bullet-list formatting)
+  - One empty paragraph between sections; none after the last section
+  - The .txt mirrors the .docx text exactly: title line, blank line, then for
+    each section the header line followed by its bullet lines, with one blank
+    line between sections (see the example .txt)
+
+--------------------------------------------------------------------------------
+6. MANDATORY BUILD METHODOLOGY (do not substitute your own process)
+--------------------------------------------------------------------------------
+Each step below prevents a specific failure mode discovered during calibration.
+
+STEP 1 - Read your environment's document-creation skill/guidance for .docx
+files before writing any code, and read the ENTIRE target notebook (e.g., with
+extract-text) before drafting. Do not skim.
+
+STEP 2 - Draft all sections and bullets as structured data (e.g., JSON), not
+directly into the document, so they can be verified and revised.
+
+STEP 3 - WIDTH-VERIFY EVERY BULLET. Character counts are useless in a
+proportional font. Measure the true rendered width of each bullet (including
+its "- " prefix) with the font metrics of Carlito-Regular.ttf - the
+metric-compatible Calibri substitute, typically at
+/usr/share/fonts/truetype/crosextra/Carlito-Regular.ttf - via
+PIL.ImageFont.truetype(path, 1200) and .getlength(text)/100, which yields
+points at 12 pt. The usable column is 468 pt (6.5 in); require every bullet
+<= 462 pt to leave a safety margin. Rewrite or trim any bullet that fails.
+(Failure mode prevented: bullets silently wrapping to a second line.)
+
+STEP 4 - RESPECT THE LINE BUDGET. The two pages hold ~88 single-spaced lines.
+Total paragraphs = 1 (title) + 1 (blank) + S (headers) + B (bullets) + (S-1)
+(blanks between sections). Require 2*S + B + 2 <= 87. Note that each section
+costs two lines of overhead, so section count and bullet count trade off
+against each other. Apply the overflow protocol from section 4 if over budget.
+(Failure mode prevented: a third page appearing.)
+
+STEP 5 - BUILD THE .docx INSIDE THE EXAMPLE FILE. Do NOT generate a new
+document from scratch with a library: unpack the attached example .docx, keep
+its styles/settings/theme untouched, and replace only the paragraphs between
+<w:body> and <w:sectPr> in word/document.xml with your new paragraphs,
+copying the example's exact <w:pPr>/<w:rPr> XML patterns (title run adds
+<w:b/> and <w:jc w:val="center"/>; header runs add <w:b/><w:i/>
+<w:u w:val="single"/>; all runs use Calibri at <w:sz w:val="24"/>). Then
+repack/validate. (Failure mode prevented: from-scratch documents render with
+subtly different spacing/wrapping than the reference.)
+
+STEP 6 - PROVE THE RESULT BEFORE DELIVERING. Convert the .docx to PDF with
+headless LibreOffice and require BOTH: (a) the PDF page count is exactly 2,
+and (b) zero wrapped lines - every non-empty line of `pdftotext -layout`
+output must begin with the title, a section header, or "- " (allowing a
+leading form-feed at page breaks). If either check fails, fix and re-verify;
+never deliver unverified files.
+
+STEP 7 - GENERATE AND VERIFY THE .txt. Build the .txt from the same structured
+content, then programmatically diff its text against the .docx's extracted
+text (ignoring styling markers and trailing whitespace) and require an exact
+match.
+
+STEP 8 - DELIVER both files to the output directory and present them, with a
+brief closing message that lists the sections chosen and discloses every
+judgment call, merge, or cut you made. Do not ask whether I want changes;
+simply disclose.
+
+--------------------------------------------------------------------------------
+7. SUMMARY OF NON-NEGOTIABLES
+--------------------------------------------------------------------------------
+  1. Two pages: soft target AND absolute ceiling
+  2. Every bullet on exactly one line, width-verified, one complete thought
+  3. Small concept-named sections; dense, detailed bullets; why-bullets included
+  4. Match the example .docx formatting exactly by building inside it
+  5. Filename conventions from section 2; title matches the .docx filename
+  6. .txt is an exact, verified text mirror of the .docx
+  7. No follow-up questions; judgment calls made and disclosed
+================================================================================
